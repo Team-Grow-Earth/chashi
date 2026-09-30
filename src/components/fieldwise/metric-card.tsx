@@ -21,15 +21,17 @@ export function MetricCard({
 }) {
   return (
     <Card className={cn("gap-0 p-5 shadow-[var(--shadow-card)]", className)}>
-      <div className="flex items-start justify-between gap-3">
-        <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
-          {icon}
-          {label}
-        </div>
-        {source ? <SourceBadge source={source} /> : null}
+      <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
+        {icon}
+        {label}
       </div>
-      <p className="mt-3 font-display text-2xl font-semibold text-foreground">{value}</p>
+      <p className="mt-2 font-display text-2xl font-semibold text-foreground">{value}</p>
       {detail ? <p className="mt-1 text-sm text-muted-foreground">{detail}</p> : null}
+      {source ? (
+        <div className="mt-4">
+          <SourceBadge source={source} />
+        </div>
+      ) : null}
     </Card>
   );
 }
