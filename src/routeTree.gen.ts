@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppRouteImport } from './routes/app'
 import { Route as AppIndexRouteImport } from './routes/app.index'
+import { Route as AppFarmRouteImport } from './routes/app.farm'
 import { Route as AppNasaRouteImport } from './routes/app.nasa'
 import { Route as AppSoilRouteImport } from './routes/app.soil'
 
@@ -30,6 +31,11 @@ const AppIndexRoute = AppIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AppRoute,
 } as any)
+const AppFarmRoute = AppFarmRouteImport.update({
+  id: '/farm',
+  path: '/farm',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppNasaRoute = AppNasaRouteImport.update({
   id: '/nasa',
   path: '/nasa',
@@ -44,12 +50,14 @@ const AppSoilRoute = AppSoilRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/app': typeof AppRouteWithChildren
+  '/app/farm': typeof AppFarmRoute
   '/app/nasa': typeof AppNasaRoute
   '/app/soil': typeof AppSoilRoute
   '/app/': typeof AppIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/app/farm': typeof AppFarmRoute
   '/app/nasa': typeof AppNasaRoute
   '/app/soil': typeof AppSoilRoute
   '/app': typeof AppIndexRoute
@@ -58,16 +66,24 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/app': typeof AppRouteWithChildren
+  '/app/farm': typeof AppFarmRoute
   '/app/nasa': typeof AppNasaRoute
   '/app/soil': typeof AppSoilRoute
   '/app/': typeof AppIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/app' | '/app/nasa' | '/app/soil' | '/app/'
+  fullPaths: '/' | '/app' | '/app/farm' | '/app/nasa' | '/app/soil' | '/app/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/app/nasa' | '/app/soil' | '/app'
-  id: '__root__' | '/' | '/app' | '/app/nasa' | '/app/soil' | '/app/'
+  to: '/' | '/app/farm' | '/app/nasa' | '/app/soil' | '/app'
+  id:
+    | '__root__'
+    | '/'
+    | '/app'
+    | '/app/farm'
+    | '/app/nasa'
+    | '/app/soil'
+    | '/app/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -98,6 +114,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppIndexRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/farm': {
+      id: '/app/farm'
+      path: '/farm'
+      fullPath: '/app/farm'
+      preLoaderRoute: typeof AppFarmRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/app/nasa': {
       id: '/app/nasa'
       path: '/nasa'
@@ -116,12 +139,14 @@ declare module '@tanstack/react-router' {
 }
 
 interface AppRouteChildren {
+  AppFarmRoute: typeof AppFarmRoute
   AppNasaRoute: typeof AppNasaRoute
   AppSoilRoute: typeof AppSoilRoute
   AppIndexRoute: typeof AppIndexRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
+  AppFarmRoute: AppFarmRoute,
   AppNasaRoute: AppNasaRoute,
   AppSoilRoute: AppSoilRoute,
   AppIndexRoute: AppIndexRoute,

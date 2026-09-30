@@ -3,7 +3,6 @@ import { Card } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { SourceBadge } from "@/components/fieldwise/source-badge";
 import { useFarm } from "@/lib/fieldwise/farm-context";
-import { getSoil } from "@/lib/fieldwise/demo-data";
 import type { DataSourceKind } from "@/lib/fieldwise/types";
 
 export const Route = createFileRoute("/app/soil")({
@@ -55,8 +54,7 @@ function Row({
 }
 
 function SoilPage() {
-  const { farm } = useFarm();
-  const soil = getSoil(farm.id);
+  const { farm, soil } = useFarm();
   const known = Object.values(soil).filter(
     (v) => v !== null && typeof v !== "object",
   ).length;

@@ -39,8 +39,8 @@ export const Route = createFileRoute("/app/")({
 });
 
 function Dashboard() {
-  const { farm } = useFarm();
-  const env = getEnvironment(farm.id);
+  const { farm, soil } = useFarm();
+  const env = getEnvironment(farm, soil);
   const now = env.monthly[new Date().getMonth()] ?? env.monthly[0]!;
 
   return (

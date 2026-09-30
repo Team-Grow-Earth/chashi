@@ -1,3 +1,4 @@
+import raw from "./data.json";
 import type {
   CropHistoryEntry,
   EnvironmentalData,
@@ -6,186 +7,54 @@ import type {
   SoilProfile,
 } from "./types";
 
-export const demoFarms: Farm[] = [
-  {
-    id: "green-valley",
-    name: "Green Valley Farm",
-    region: "Rajshahi",
-    country: "Bangladesh",
-    lat: 24.3745,
-    lon: 88.6042,
-    sizeValue: 4.5,
-    sizeUnit: "acres",
-    currentCrop: "Rice",
-    soilType: "Silty loam",
-    season: "Kharif (monsoon)",
-    lastUpdated: "2 days ago",
-  },
-  {
-    id: "riverbank",
-    name: "Riverbank Farm",
-    region: "Bogura",
-    country: "Bangladesh",
-    lat: 24.8465,
-    lon: 89.3773,
-    sizeValue: 2.1,
-    sizeUnit: "hectares",
-    currentCrop: "Maize",
-    soilType: "Sandy loam",
-    season: "Rabi (dry)",
-    lastUpdated: "6 days ago",
-  },
-  {
-    id: "north-field",
-    name: "North Field",
-    region: "Dinajpur",
-    country: "Bangladesh",
-    lat: 25.6217,
-    lon: 88.6354,
-    sizeValue: 7.0,
-    sizeUnit: "acres",
-    currentCrop: "Wheat",
-    soilType: "Clay loam",
-    season: "Rabi (dry)",
-    lastUpdated: "3 weeks ago",
-  },
-];
+/** All seed data comes from data.json. User edits are layered on top via localStorage (see farm-context). */
+export interface FieldWiseData {
+  farms: Farm[];
+  soil: Record<string, SoilProfile>;
+  history: Record<string, CropHistoryEntry[]>;
+}
 
-export const demoSoil: Record<string, SoilProfile> = {
-  "green-valley": {
-    soilType: "Silty loam",
-    ph: 6.4,
-    organicMatter: 1.8,
-    nitrogen: "medium",
-    phosphorus: "low",
-    potassium: "medium",
-    drainage: "Moderate",
-    texture: "Silty loam",
-    waterRetention: "Good",
-    provenance: {
-      soilType: "farmer",
-      ph: "farmer",
-      organicMatter: "model",
-      nitrogen: "farmer",
-      phosphorus: "regional",
-      potassium: "regional",
-      drainage: "farmer",
-      texture: "farmer",
-      waterRetention: "model",
-    },
-  },
-  riverbank: {
-    soilType: "Sandy loam",
-    ph: 7.1,
-    organicMatter: null,
-    nitrogen: "low",
-    phosphorus: "medium",
-    potassium: "medium",
-    drainage: "Fast",
-    texture: "Sandy loam",
-    waterRetention: "Low",
-    provenance: {
-      soilType: "farmer",
-      ph: "farmer",
-      organicMatter: "model",
-      nitrogen: "regional",
-      phosphorus: "regional",
-      potassium: "regional",
-      drainage: "farmer",
-      texture: "farmer",
-      waterRetention: "model",
-    },
-  },
-  "north-field": {
-    soilType: "Clay loam",
-    ph: 5.9,
-    organicMatter: 2.4,
-    nitrogen: "medium",
-    phosphorus: "medium",
-    potassium: "low",
-    drainage: "Slow",
-    texture: "Clay loam",
-    waterRetention: "High",
-    provenance: {
-      soilType: "farmer",
-      ph: "farmer",
-      organicMatter: "farmer",
-      nitrogen: "regional",
-      phosphorus: "regional",
-      potassium: "farmer",
-      drainage: "farmer",
-      texture: "farmer",
-      waterRetention: "model",
-    },
-  },
-};
+export const seedData = raw as unknown as FieldWiseData;
+export const demoFarms = seedData.farms;
 
-export const demoHistory: Record<string, CropHistoryEntry[]> = {
-  "green-valley": [
-    { year: 2023, season: "Kharif", crop: "Rice", yield: "3.4 t/ha" },
-    { year: 2024, season: "Rabi", crop: "Wheat", yield: "2.8 t/ha" },
-    { year: 2025, season: "Kharif", crop: "Rice", yield: "3.1 t/ha" },
-    { year: 2026, season: "Rabi", crop: "Maize" },
-  ],
-  riverbank: [
-    { year: 2024, season: "Rabi", crop: "Maize", yield: "5.1 t/ha" },
-    { year: 2025, season: "Kharif", crop: "Rice", yield: "3.0 t/ha" },
-    { year: 2026, season: "Rabi", crop: "Maize" },
-  ],
-  "north-field": [
-    { year: 2023, season: "Rabi", crop: "Wheat", yield: "2.6 t/ha" },
-    { year: 2024, season: "Rabi", crop: "Wheat", yield: "2.4 t/ha" },
-    { year: 2025, season: "Kharif", crop: "Jute" },
-    { year: 2026, season: "Rabi", crop: "Wheat" },
-  ],
-};
+const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-const MONTHS = [
-  "Jan",
-  "Feb",
-  "Mar",
-  "Apr",
-  "May",
-  "Jun",
-  "Jul",
-  "Aug",
-  "Sep",
-  "Oct",
-  "Nov",
-  "Dec",
-];
-
-/**
- * Deterministic, location-seeded sample series. Clearly labelled in the UI as
- * demo/example values shaped like NASA Earth-observation products.
- */
-function buildMonthly(seed: number): MonthlyPoint[] {
+function buildMonthly(seed: number, lat: number): MonthlyPoint[] {
+  // Latitude shifts baseline temperature; seed varies the series per location.
+  const base = 30 - Math.abs(lat) * 0.25;
+  const wetness = 0.7 + ((Math.sin(seed * 3.1) + 1) / 2) * 0.6; // 0.7 – 1.3
   return MONTHS.map((month, i) => {
     const wave = Math.sin(((i - 3) / 12) * Math.PI * 2);
     const jitter = Math.sin(seed + i * 1.7) * 0.5;
-    const temperature = Math.round((26 + wave * 6 + jitter) * 10) / 10;
+    const temperature = Math.round((base + wave * 6 + jitter) * 10) / 10;
     const monsoon = Math.max(0, Math.sin(((i - 4) / 12) * Math.PI * 2));
-    const rainfall = Math.round(15 + monsoon * 330 + jitter * 18);
-    const soilMoisture = Math.round((0.18 + monsoon * 0.2 + jitter * 0.02) * 100);
-    const ndvi = Math.round((0.32 + monsoon * 0.34 + jitter * 0.03) * 100) / 100;
+    const rainfall = Math.max(0, Math.round((15 + monsoon * 330 + jitter * 18) * wetness));
+    const soilMoisture = Math.round((0.14 + monsoon * 0.2 * wetness + jitter * 0.02) * 100);
+    const ndvi = Math.round((0.3 + monsoon * 0.34 * wetness + jitter * 0.03) * 100) / 100;
     return { month, temperature, rainfall, soilMoisture, ndvi };
   });
 }
 
-export function getEnvironment(farmId: string): EnvironmentalData {
-  const farm = demoFarms.find((f) => f.id === farmId) ?? demoFarms[0]!;
-  const seed = farm.lat + farm.lon;
-  const monthly = buildMonthly(seed);
-  const droughtLevel =
-    farm.id === "riverbank" ? "Moderate" : farm.id === "north-field" ? "Mild" : "None";
+/** Location-driven sample series: change lat/lon or soil in the form and the output changes. */
+export function getEnvironment(farm: Farm, soil?: SoilProfile): EnvironmentalData {
+  const monthly = buildMonthly(farm.lat + farm.lon, farm.lat);
+  const totalRain = monthly.reduce((s, m) => s + m.rainfall, 0);
+  let score = totalRain < 1200 ? 2 : totalRain < 1500 ? 1 : 0;
+  if (soil?.drainage === "Fast" || soil?.waterRetention === "Low") score += 1;
+  if (soil?.waterRetention === "High") score -= 1;
+  const droughtLevel = (["None", "Mild", "Moderate", "Severe"] as const)[
+    Math.max(0, Math.min(3, score))
+  ]!;
   const summary =
-    droughtLevel === "Moderate"
-      ? "Recent conditions point to drier-than-usual soil, especially in the dry season."
-      : droughtLevel === "Mild"
-        ? "Conditions are slightly drier than a normal year, but not unusual."
-        : "Recent conditions look close to a normal year for this area.";
+    droughtLevel === "Severe"
+      ? "Rainfall is low and your soil loses water quickly — dry-season crops face high water stress."
+      : droughtLevel === "Moderate"
+        ? "Recent conditions point to drier-than-usual soil, especially in the dry season."
+        : droughtLevel === "Mild"
+          ? "Conditions are slightly drier than a normal year, but not unusual."
+          : "Recent conditions look close to a normal year for this area.";
   return {
-    updated: "Updated 2 days ago",
+    updated: `Estimated for ${farm.lat.toFixed(2)}, ${farm.lon.toFixed(2)}`,
     resolution: "Area-wide estimate, roughly 10 km grid",
     monthly,
     droughtLevel,
@@ -193,12 +62,29 @@ export function getEnvironment(farmId: string): EnvironmentalData {
   };
 }
 
-export function getFarm(farmId: string): Farm {
-  return demoFarms.find((f) => f.id === farmId) ?? demoFarms[0]!;
-}
-
-export function getSoil(farmId: string): SoilProfile {
-  return demoSoil[farmId] ?? demoSoil["green-valley"]!;
+export function emptySoil(soilType: string): SoilProfile {
+  return {
+    soilType,
+    ph: null,
+    organicMatter: null,
+    nitrogen: null,
+    phosphorus: null,
+    potassium: null,
+    drainage: null,
+    texture: soilType,
+    waterRetention: null,
+    provenance: {
+      soilType: "farmer",
+      ph: "farmer",
+      organicMatter: "farmer",
+      nitrogen: "farmer",
+      phosphorus: "farmer",
+      potassium: "farmer",
+      drainage: "farmer",
+      texture: "farmer",
+      waterRetention: "farmer",
+    },
+  };
 }
 
 export function plainLevel(value: number, low: number, high: number) {
