@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppRouteImport } from './routes/app'
 import { Route as AppIndexRouteImport } from './routes/app.index'
 import { Route as AppNasaRouteImport } from './routes/app.nasa'
+import { Route as AppSoilRouteImport } from './routes/app.soil'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -34,16 +35,23 @@ const AppNasaRoute = AppNasaRouteImport.update({
   path: '/nasa',
   getParentRoute: () => AppRoute,
 } as any)
+const AppSoilRoute = AppSoilRouteImport.update({
+  id: '/soil',
+  path: '/soil',
+  getParentRoute: () => AppRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/app': typeof AppRouteWithChildren
   '/app/nasa': typeof AppNasaRoute
+  '/app/soil': typeof AppSoilRoute
   '/app/': typeof AppIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/app/nasa': typeof AppNasaRoute
+  '/app/soil': typeof AppSoilRoute
   '/app': typeof AppIndexRoute
 }
 export interface FileRoutesById {
@@ -51,14 +59,15 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/app': typeof AppRouteWithChildren
   '/app/nasa': typeof AppNasaRoute
+  '/app/soil': typeof AppSoilRoute
   '/app/': typeof AppIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/app' | '/app/nasa' | '/app/'
+  fullPaths: '/' | '/app' | '/app/nasa' | '/app/soil' | '/app/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/app/nasa' | '/app'
-  id: '__root__' | '/' | '/app' | '/app/nasa' | '/app/'
+  to: '/' | '/app/nasa' | '/app/soil' | '/app'
+  id: '__root__' | '/' | '/app' | '/app/nasa' | '/app/soil' | '/app/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -96,16 +105,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppNasaRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/soil': {
+      id: '/app/soil'
+      path: '/soil'
+      fullPath: '/app/soil'
+      preLoaderRoute: typeof AppSoilRouteImport
+      parentRoute: typeof AppRoute
+    }
   }
 }
 
 interface AppRouteChildren {
   AppNasaRoute: typeof AppNasaRoute
+  AppSoilRoute: typeof AppSoilRoute
   AppIndexRoute: typeof AppIndexRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
   AppNasaRoute: AppNasaRoute,
+  AppSoilRoute: AppSoilRoute,
   AppIndexRoute: AppIndexRoute,
 }
 
