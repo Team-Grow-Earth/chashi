@@ -1,10 +1,5 @@
-<!-- LOVABLE:BEGIN -->
-> [!IMPORTANT]
-> This project is connected to [Lovable](https://lovable.dev). Avoid rewriting
-> published git history — force pushing, or rebasing/amending/squashing commits
-> that are already pushed — as it rewrites history on Lovable's side and the
-> user will likely lose their project history.
->
-> Commits you push to the connected branch sync back to Lovable and show up in
-> the editor, so keep the branch in a working state.
-<!-- LOVABLE:END -->
+# Project rules
+
+- FieldWise demo data lives in `src/lib/fieldwise/` (types, demo-data, farm-context); routes and components read from it so a real backend can replace one module later.
+- The selected farm is shared via `FarmProvider` in `src/routes/app.tsx`, so every app page reacts to the farm switcher.
+- Every displayed value carries a `SourceBadge` (nasa / farmer / regional / model) so data provenance is never implicit.
