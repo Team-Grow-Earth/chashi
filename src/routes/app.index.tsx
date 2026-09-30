@@ -174,7 +174,15 @@ function Dashboard() {
   );
 }
 
-function QuickAction({ to, title, body }: { to: string; title: string; body: string }) {
+function QuickAction({
+  to,
+  title,
+  body,
+}: {
+  to: "/app/nasa" | "/app/soil";
+  title: string;
+  body: string;
+}) {
   return (
     <Card className="gap-0 p-5 shadow-[var(--shadow-card)] transition-shadow hover:shadow-[var(--shadow-lift)]">
       <h3 className="font-display text-base font-semibold">{title}</h3>
