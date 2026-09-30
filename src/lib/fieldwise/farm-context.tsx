@@ -11,10 +11,10 @@ interface FarmContextValue {
 const FarmContext = createContext<FarmContextValue | null>(null);
 
 export function FarmProvider({ children }: { children: ReactNode }) {
-  const [farmId, setFarmId] = useState(demoFarms[0].id);
+  const [farmId, setFarmId] = useState(demoFarms[0]!.id);
   const value = useMemo<FarmContextValue>(
     () => ({
-      farm: demoFarms.find((f) => f.id === farmId) ?? demoFarms[0],
+      farm: demoFarms.find((f) => f.id === farmId) ?? demoFarms[0]!,
       farms: demoFarms,
       setFarmId,
     }),

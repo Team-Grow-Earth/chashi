@@ -173,7 +173,7 @@ function buildMonthly(seed: number): MonthlyPoint[] {
 }
 
 export function getEnvironment(farmId: string): EnvironmentalData {
-  const farm = demoFarms.find((f) => f.id === farmId) ?? demoFarms[0];
+  const farm = demoFarms.find((f) => f.id === farmId) ?? demoFarms[0]!;
   const seed = farm.lat + farm.lon;
   const monthly = buildMonthly(seed);
   const droughtLevel =
@@ -194,11 +194,11 @@ export function getEnvironment(farmId: string): EnvironmentalData {
 }
 
 export function getFarm(farmId: string): Farm {
-  return demoFarms.find((f) => f.id === farmId) ?? demoFarms[0];
+  return demoFarms.find((f) => f.id === farmId) ?? demoFarms[0]!;
 }
 
 export function getSoil(farmId: string): SoilProfile {
-  return demoSoil[farmId] ?? demoSoil["green-valley"];
+  return demoSoil[farmId] ?? demoSoil["green-valley"]!;
 }
 
 export function plainLevel(value: number, low: number, high: number) {

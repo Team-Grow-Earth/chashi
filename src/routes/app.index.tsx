@@ -41,7 +41,7 @@ export const Route = createFileRoute("/app/")({
 function Dashboard() {
   const { farm } = useFarm();
   const env = getEnvironment(farm.id);
-  const now = env.monthly[new Date().getMonth()];
+  const now = env.monthly[new Date().getMonth()] ?? env.monthly[0]!;
 
   return (
     <div className="mx-auto max-w-6xl space-y-8">
