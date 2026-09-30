@@ -12,9 +12,11 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppRouteImport } from './routes/app'
 import { Route as AppIndexRouteImport } from './routes/app.index'
+import { Route as AppCropsRouteImport } from './routes/app.crops'
 import { Route as AppFarmRouteImport } from './routes/app.farm'
 import { Route as AppNasaRouteImport } from './routes/app.nasa'
 import { Route as AppSoilRouteImport } from './routes/app.soil'
+import { Route as AppWaterRouteImport } from './routes/app.water'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -29,6 +31,11 @@ const AppRoute = AppRouteImport.update({
 const AppIndexRoute = AppIndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppCropsRoute = AppCropsRouteImport.update({
+  id: '/crops',
+  path: '/crops',
   getParentRoute: () => AppRoute,
 } as any)
 const AppFarmRoute = AppFarmRouteImport.update({
@@ -46,43 +53,71 @@ const AppSoilRoute = AppSoilRouteImport.update({
   path: '/soil',
   getParentRoute: () => AppRoute,
 } as any)
+const AppWaterRoute = AppWaterRouteImport.update({
+  id: '/water',
+  path: '/water',
+  getParentRoute: () => AppRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/app': typeof AppRouteWithChildren
+  '/app/crops': typeof AppCropsRoute
   '/app/farm': typeof AppFarmRoute
   '/app/nasa': typeof AppNasaRoute
   '/app/soil': typeof AppSoilRoute
+  '/app/water': typeof AppWaterRoute
   '/app/': typeof AppIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/app/crops': typeof AppCropsRoute
   '/app/farm': typeof AppFarmRoute
   '/app/nasa': typeof AppNasaRoute
   '/app/soil': typeof AppSoilRoute
+  '/app/water': typeof AppWaterRoute
   '/app': typeof AppIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/app': typeof AppRouteWithChildren
+  '/app/crops': typeof AppCropsRoute
   '/app/farm': typeof AppFarmRoute
   '/app/nasa': typeof AppNasaRoute
   '/app/soil': typeof AppSoilRoute
+  '/app/water': typeof AppWaterRoute
   '/app/': typeof AppIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/app' | '/app/farm' | '/app/nasa' | '/app/soil' | '/app/'
+  fullPaths:
+    | '/'
+    | '/app'
+    | '/app/crops'
+    | '/app/farm'
+    | '/app/nasa'
+    | '/app/soil'
+    | '/app/water'
+    | '/app/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/app/farm' | '/app/nasa' | '/app/soil' | '/app'
+  to:
+    | '/'
+    | '/app/crops'
+    | '/app/farm'
+    | '/app/nasa'
+    | '/app/soil'
+    | '/app/water'
+    | '/app'
   id:
     | '__root__'
     | '/'
     | '/app'
+    | '/app/crops'
     | '/app/farm'
     | '/app/nasa'
     | '/app/soil'
+    | '/app/water'
     | '/app/'
   fileRoutesById: FileRoutesById
 }
@@ -114,6 +149,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppIndexRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/crops': {
+      id: '/app/crops'
+      path: '/crops'
+      fullPath: '/app/crops'
+      preLoaderRoute: typeof AppCropsRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/app/farm': {
       id: '/app/farm'
       path: '/farm'
@@ -135,20 +177,31 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppSoilRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/water': {
+      id: '/app/water'
+      path: '/water'
+      fullPath: '/app/water'
+      preLoaderRoute: typeof AppWaterRouteImport
+      parentRoute: typeof AppRoute
+    }
   }
 }
 
 interface AppRouteChildren {
+  AppCropsRoute: typeof AppCropsRoute
   AppFarmRoute: typeof AppFarmRoute
   AppNasaRoute: typeof AppNasaRoute
   AppSoilRoute: typeof AppSoilRoute
+  AppWaterRoute: typeof AppWaterRoute
   AppIndexRoute: typeof AppIndexRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
+  AppCropsRoute: AppCropsRoute,
   AppFarmRoute: AppFarmRoute,
   AppNasaRoute: AppNasaRoute,
   AppSoilRoute: AppSoilRoute,
+  AppWaterRoute: AppWaterRoute,
   AppIndexRoute: AppIndexRoute,
 }
 

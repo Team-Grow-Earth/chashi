@@ -1,5 +1,5 @@
 import { createFileRoute, Link, Outlet } from "@tanstack/react-router";
-import { LayoutDashboard, Satellite, Layers, ChevronsUpDown, PencilLine } from "lucide-react";
+import { LayoutDashboard, Satellite, Layers, ChevronsUpDown, PencilLine, Sprout, Droplets } from "lucide-react";
 import { FieldWiseLogo } from "@/components/fieldwise/logo";
 import { FarmProvider, useFarm } from "@/lib/fieldwise/farm-context";
 import {
@@ -19,6 +19,8 @@ const NAV = [
   { to: "/app", label: "Dashboard", icon: LayoutDashboard, exact: true },
   { to: "/app/nasa", label: "NASA Data", icon: Satellite, exact: false },
   { to: "/app/soil", label: "Soil", icon: Layers, exact: false },
+  { to: "/app/crops", label: "Crops", icon: Sprout, exact: false },
+  { to: "/app/water", label: "Water", icon: Droplets, exact: false },
   { to: "/app/farm", label: "My Farm", icon: PencilLine, exact: false },
 ] as const;
 
@@ -101,14 +103,14 @@ function AppLayout() {
           </main>
         </div>
 
-        <nav className="fixed inset-x-0 bottom-0 z-30 grid grid-cols-4 border-t border-border bg-background/95 backdrop-blur lg:hidden">
+        <nav className="fixed inset-x-0 bottom-0 z-30 grid grid-cols-6 border-t border-border bg-background/95 backdrop-blur lg:hidden">
           {NAV.map((item) => (
             <Link
               key={item.to}
               to={item.to}
               activeOptions={{ exact: item.exact }}
               activeProps={{ className: "text-primary" }}
-              className="flex flex-col items-center gap-1 px-2 py-3 text-[11px] font-medium text-muted-foreground"
+              className="flex flex-col items-center gap-1 px-1 py-3 text-[10px] font-medium text-muted-foreground"
             >
               <item.icon className="size-5" aria-hidden />
               {item.label}
