@@ -25,7 +25,17 @@ export interface SoilProfile {
   drainage: string | null;
   texture: string | null;
   waterRetention: string | null;
-  provenance: Record<string, DataSourceKind>;
+  provenance: {
+    soilType: DataSourceKind;
+    ph: DataSourceKind;
+    organicMatter: DataSourceKind;
+    nitrogen: DataSourceKind;
+    phosphorus: DataSourceKind;
+    potassium: DataSourceKind;
+    drainage: DataSourceKind;
+    texture: DataSourceKind;
+    waterRetention: DataSourceKind;
+  };
 }
 
 export interface MonthlyPoint {

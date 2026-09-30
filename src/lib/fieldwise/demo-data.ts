@@ -197,6 +197,10 @@ export function getFarm(farmId: string): Farm {
   return demoFarms.find((f) => f.id === farmId) ?? demoFarms[0];
 }
 
+export function getSoil(farmId: string): SoilProfile {
+  return demoSoil[farmId] ?? demoSoil["green-valley"];
+}
+
 export function plainLevel(value: number, low: number, high: number) {
   if (value < low) return "Low";
   if (value > high) return "High";
