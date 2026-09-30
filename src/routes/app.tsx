@@ -1,5 +1,5 @@
 import { createFileRoute, Link, Outlet } from "@tanstack/react-router";
-import { LayoutDashboard, Satellite, Layers, ChevronsUpDown } from "lucide-react";
+import { LayoutDashboard, Satellite, Layers, ChevronsUpDown, PencilLine } from "lucide-react";
 import { FieldWiseLogo } from "@/components/fieldwise/logo";
 import { FarmProvider, useFarm } from "@/lib/fieldwise/farm-context";
 import {
@@ -19,6 +19,7 @@ const NAV = [
   { to: "/app", label: "Dashboard", icon: LayoutDashboard, exact: true },
   { to: "/app/nasa", label: "NASA Data", icon: Satellite, exact: false },
   { to: "/app/soil", label: "Soil", icon: Layers, exact: false },
+  { to: "/app/farm", label: "My Farm", icon: PencilLine, exact: false },
 ] as const;
 
 function FarmSwitcher() {
@@ -81,7 +82,7 @@ function AppLayout() {
               Demo data
             </Badge>
             <p>
-              You are exploring an example farm. Values are illustrative, not real measurements.
+              Examples load from a data file; your own entries are saved on this device. Estimates are illustrative.
             </p>
           </div>
         </aside>
@@ -100,7 +101,7 @@ function AppLayout() {
           </main>
         </div>
 
-        <nav className="fixed inset-x-0 bottom-0 z-30 grid grid-cols-3 border-t border-border bg-background/95 backdrop-blur lg:hidden">
+        <nav className="fixed inset-x-0 bottom-0 z-30 grid grid-cols-4 border-t border-border bg-background/95 backdrop-blur lg:hidden">
           {NAV.map((item) => (
             <Link
               key={item.to}
