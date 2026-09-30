@@ -92,8 +92,8 @@ const tooltipStyle = {
 };
 
 function NasaDashboard() {
-  const { farm } = useFarm();
-  const env = getEnvironment(farm.id);
+  const { farm, soil } = useFarm();
+  const env = getEnvironment(farm, soil);
   const data = env.monthly;
 
   return (
