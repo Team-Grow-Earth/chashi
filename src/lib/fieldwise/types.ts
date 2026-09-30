@@ -58,5 +58,5 @@ export interface CropHistoryEntry {
   year: number;
   season: string;
   crop: string;
-  yield?: string;
+  yield?: string | undefined;
 }
