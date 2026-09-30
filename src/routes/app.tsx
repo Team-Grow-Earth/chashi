@@ -1,5 +1,5 @@
 import { createFileRoute, Link, Outlet } from "@tanstack/react-router";
-import { LayoutDashboard, Satellite, Layers, FlaskConical, ChevronsUpDown } from "lucide-react";
+import { LayoutDashboard, Satellite, Layers, ChevronsUpDown } from "lucide-react";
 import { FieldWiseLogo } from "@/components/fieldwise/logo";
 import { FarmProvider, useFarm } from "@/lib/fieldwise/farm-context";
 import {
@@ -118,5 +118,3 @@ function AppLayout() {
     </FarmProvider>
   );
 }
-
-export { FlaskConical };
