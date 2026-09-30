@@ -22,7 +22,7 @@ export const Route = createFileRoute("/app/soil")({
       },
     ],
   }),
-  component: SoilPage;
+  component: SoilPage,
 });
 
 function Row({
