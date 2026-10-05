@@ -8,13 +8,13 @@ import type { DataSourceKind } from "@/lib/fieldwise/types";
 export const Route = createFileRoute("/app/soil")({
   head: () => ({
     meta: [
-      { title: "Soil profile — FieldWise" },
+      { title: "Soil profile — Chashi" },
       {
         name: "description",
         content:
           "Your soil in one place: what you entered, what is estimated from regional data, and what is still missing.",
       },
-      { property: "og:title", content: "Soil profile — FieldWise" },
+      { property: "og:title", content: "Soil profile — Chashi" },
       {
         property: "og:description",
         content: "A clear, honest picture of your soil and where each value came from.",

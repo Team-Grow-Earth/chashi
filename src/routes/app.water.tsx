@@ -13,9 +13,9 @@ import { crops, findCrop, waterAdvice } from "@/lib/fieldwise/crop-engine";
 export const Route = createFileRoute("/app/water")({
   head: () => ({
     meta: [
-      { title: "Water today — FieldWise" },
+      { title: "Water today — Chashi" },
       { name: "description", content: "Type your crop and find out whether it needs watering today." },
-      { property: "og:title", content: "Water today — FieldWise" },
+      { property: "og:title", content: "Water today — Chashi" },
       { property: "og:description", content: "A daily watering check for your crop based on today's conditions." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },

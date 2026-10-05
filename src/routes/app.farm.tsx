@@ -13,9 +13,9 @@ import { Label } from "@/components/ui/label";
 export const Route = createFileRoute("/app/farm")({
   head: () => ({
     meta: [
-      { title: "Farm details — FieldWise" },
-      { name: "description", content: "Enter or edit your farm, soil and crop history to update every FieldWise result." },
-      { property: "og:title", content: "Farm details — FieldWise" },
+      { title: "Farm details — Chashi" },
+      { name: "description", content: "Enter or edit your farm, soil and crop history to update every Chashi result." },
+      { property: "og:title", content: "Farm details — Chashi" },
       { property: "og:description", content: "Enter your farm information and see results update instantly." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },

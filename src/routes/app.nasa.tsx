@@ -27,13 +27,13 @@ import type { ReactNode } from "react";
 export const Route = createFileRoute("/app/nasa")({
   head: () => ({
     meta: [
-      { title: "Environmental data — FieldWise" },
+      { title: "Environmental data — Chashi" },
       {
         name: "description",
         content:
           "Temperature, rainfall, soil moisture, vegetation greenness and dryness around your farm, explained in plain language.",
       },
-      { property: "og:title", content: "Environmental data — FieldWise" },
+      { property: "og:title", content: "Environmental data — Chashi" },
       {
         property: "og:description",
         content: "NASA-style Earth-observation data for your farm, without the jargon.",

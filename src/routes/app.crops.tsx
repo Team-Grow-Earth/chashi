@@ -11,9 +11,9 @@ import { recommendCrops } from "@/lib/fieldwise/crop-engine";
 export const Route = createFileRoute("/app/crops")({
   head: () => ({
     meta: [
-      { title: "Crop recommendations — FieldWise" },
+      { title: "Crop recommendations — Chashi" },
       { name: "description", content: "Compare the crops that best fit your farm's season, soil and current conditions." },
-      { property: "og:title", content: "Crop recommendations — FieldWise" },
+      { property: "og:title", content: "Crop recommendations — Chashi" },
       { property: "og:description", content: "Top crop options for your farm with strengths and trade-offs." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
