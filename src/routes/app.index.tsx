@@ -22,13 +22,13 @@ import { getEnvironment, plainLevel } from "@/lib/fieldwise/demo-data";
 export const Route = createFileRoute("/app/")({
   head: () => ({
     meta: [
-      { title: "Farm dashboard — FieldWise" },
+      { title: "Farm dashboard — Chashi" },
       {
         name: "description",
         content:
           "See your farm at a glance: size, soil, current crop and the latest environmental conditions around your fields.",
       },
-      { property: "og:title", content: "Farm dashboard — FieldWise" },
+      { property: "og:title", content: "Farm dashboard — Chashi" },
       {
         property: "og:description",
         content: "Your farm, its soil and current conditions, in plain language.",
@@ -166,7 +166,7 @@ function Dashboard() {
           />
         </div>
         <Card className="border-dashed bg-transparent p-5 text-sm text-muted-foreground shadow-none">
-          Coming next in FieldWise: rotation planner, strategy comparison, climate scenarios,
+          Coming next in Chashi: rotation planner, strategy comparison, climate scenarios,
           seasonal plan, resilience indicators and the downloadable farm report.
         </Card>
       </section>

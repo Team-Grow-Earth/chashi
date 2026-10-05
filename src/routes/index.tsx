@@ -17,13 +17,13 @@ import { Card } from "@/components/ui/card";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "FieldWise — Adapting farms with NASA data" },
+      { title: "Chashi — Adapting farms with NASA data" },
       {
         name: "description",
         content:
-          "FieldWise helps farmers understand changing conditions on their land and compare practical crop-rotation options, with every number clearly sourced.",
+          "Chashi helps farmers understand changing conditions on their land and compare practical crop-rotation options, with every number clearly sourced.",
       },
-      { property: "og:title", content: "FieldWise — Adapting farms with NASA data" },
+      { property: "og:title", content: "Chashi — Adapting farms with NASA data" },
       {
         property: "og:description",
         content:
@@ -84,7 +84,7 @@ function Landing() {
               Adapting farms with NASA data
             </h1>
             <p className="max-w-xl text-lg text-muted-foreground">
-              Your land is changing. FieldWise shows you what is happening around your fields and
+              Your land is changing. Chashi shows you what is happening around your fields and
               lays out a few practical crop-rotation options, so you can weigh them up and decide.
             </p>
             <div className="flex flex-wrap gap-3">
@@ -114,7 +114,7 @@ function Landing() {
       </section>
 
       <section className="mx-auto max-w-6xl px-5 py-16">
-        <h2 className="font-display text-2xl font-semibold">How FieldWise works</h2>
+        <h2 className="font-display text-2xl font-semibold">How Chashi works</h2>
         <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {STEPS.map((step, i) => (
             <Card key={step.title} className="gap-0 p-5 shadow-[var(--shadow-card)]">
@@ -155,7 +155,7 @@ function Landing() {
       <section className="mx-auto max-w-6xl px-5 py-16">
         <h2 className="font-display text-2xl font-semibold">Never one unexplained answer</h2>
         <p className="mt-2 max-w-2xl text-muted-foreground">
-          FieldWise does not tell you what to plant. It shows options like these, with the
+          Chashi does not tell you what to plant. It shows options like these, with the
           trade-offs visible.
         </p>
         <div className="mt-8 grid gap-5 lg:grid-cols-3">

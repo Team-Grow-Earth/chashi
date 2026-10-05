@@ -42,7 +42,7 @@ const SOURCES: Record<
     label: "Model-derived",
     icon: FlaskConical,
     classes: "bg-model-soft text-model",
-    what: "A value calculated by FieldWise by combining environmental data, soil details, crop needs and your priorities.",
+    what: "A value calculated by Chashi by combining environmental data, soil details, crop needs and your priorities.",
     limits:
       "This is an estimate, not a prediction or a guarantee. Results change when the underlying information or assumptions change.",
   },
